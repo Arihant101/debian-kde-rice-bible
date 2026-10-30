@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Debian KDE Rice Bible</title>
+<meta name="description" content="A huge, verified, FOSS-only guide to making Debian 13 KDE Plasma look incredible: themes, widgets, KWin effects, terminal, boot screens, dotfiles and Reddit inspiration.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<style>
+:root{--bg:#07080d;--panel:#0d1018;--panel2:#121624;--line:#1f2538;--text:#c9d1e6;--dim:#7d86a3;--cyan:#22e4ff;--pink:#ff2bd6;--lime:#9dff5c;--amber:#ffb84d;--mono:ui-monospace,"JetBrains Mono","Fira Code","Cascadia Code",Menlo,Consolas,monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--text);font:15.5px/1.65 var(--sans);
+background-image:radial-gradient(1200px 600px at 85% -10%,rgba(255,43,214,.10),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(34,228,255,.10),transparent 60%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,auto,32px 32px,32px 32px;background-attachment:fixed}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);mix-blend-mode:multiply;opacity:.35;z-index:50}
+a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed rgba(34,228,255,.35)}a:hover{color:#fff;border-bottom-color:var(--pink);text-shadow:0 0 8px rgba(34,228,255,.6)}
+.wrap{display:grid;grid-template-columns:270px minmax(0,1fr);gap:28px;max-width:1440px;margin:0 auto;padding:24px}
+nav{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;background:rgba(13,16,24,.85);border:1px solid var(--line);border-radius:14px;padding:14px;backdrop-filter:blur(10px)}
+nav .brand{font:700 13px/1.3 var(--mono);color:var(--lime);letter-spacing:.06em;margin:2px 4px 12px}
+nav .brand span{color:var(--dim)}
+nav a{display:flex;gap:10px;align-items:baseline;padding:6px 8px;border:0;border-radius:8px;color:var(--text);font-size:13.5px}
+nav a .n{font:600 11px var(--mono);color:var(--pink);min-width:20px}
+nav a:hover,nav a.on{background:var(--panel2);color:#fff;text-shadow:none}
+nav a.on .n{color:var(--cyan)}
+#q{width:100%;margin:0 0 10px;padding:9px 11px;background:#05060a;border:1px solid var(--line);border-radius:9px;color:var(--text);font:13px var(--mono);outline:none}
+#q:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,228,255,.15)}
+header{position:relative;border:1px solid var(--line);border-radius:18px;padding:42px 36px 34px;margin-bottom:24px;overflow:hidden;background:linear-gradient(135deg,rgba(18,22,36,.95),rgba(9,10,16,.95))}
+header::before{content:"";position:absolute;inset:-1px;border-radius:18px;padding:1px;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--lime));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.7}
+.prompt{font:13px var(--mono);color:var(--lime);margin-bottom:14px}.prompt b{color:var(--cyan);font-weight:600}
+.cursor{display:inline-block;width:.6em;height:1.05em;background:var(--lime);vertical-align:-2px;animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}
+h1{margin:0;font:800 clamp(34px,5vw,60px)/1.02 var(--sans);letter-spacing:-.03em;background:linear-gradient(90deg,#fff 10%,var(--cyan) 45%,var(--pink) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.glitch{position:relative}
+.sub{margin:14px 0 0;color:var(--dim);font:13px var(--mono)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font:600 12px var(--mono);padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0a0c13;color:var(--text)}
+.chip i{font-style:normal;color:var(--pink)}
+.card{background:rgba(13,16,24,.82);border:1px solid var(--line);border-radius:16px;padding:6px 28px 22px;margin:0 0 22px;backdrop-filter:blur(6px);transition:border-color .2s}
+.card:hover{border-color:#2c3550}
+.card.hide{display:none}
+h2{font:800 23px/1.25 var(--sans);letter-spacing:-.01em;color:#fff;margin:22px 0 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+h2::first-letter{color:var(--pink)}
+p{margin:10px 0}
+p strong,li strong{color:#fff}
+code{font:13px var(--mono);background:#05060a;border:1px solid var(--line);color:var(--lime);padding:1px 6px;border-radius:6px;white-space:nowrap}
+.tw{overflow-x:auto;margin:12px 0 16px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{position:sticky;top:0;background:#141a2b;color:var(--cyan);font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid #161b2a;vertical-align:top}
+tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:rgba(255,255,255,.015)}
+tbody tr:hover{background:rgba(34,228,255,.05)}
+td:first-child{color:#fff;font-weight:600}
+ol,ul{padding-left:22px}li{margin:6px 0}li::marker{color:var(--pink);font-family:var(--mono)}
+.lead p{color:var(--dim);font:13px var(--mono)}
+footer{color:var(--dim);font:12px var(--mono);text-align:center;padding:24px 0 40px}
+mark{background:rgba(255,43,214,.35);color:#fff;border-radius:3px}
+.top{position:fixed;right:18px;bottom:18px;z-index:60;border:1px solid var(--line);background:var(--panel);color:var(--cyan);font:700 13px var(--mono);padding:10px 12px;border-radius:10px;cursor:pointer}
+@media (max-width:960px){.wrap{grid-template-columns:minmax(0,1fr);padding:12px}nav{position:relative;top:0;max-height:none}nav .links{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}nav a{font-size:12.5px;padding:5px 6px}.prompt,.sub{overflow-wrap:anywhere}p code,li code{white-space:normal;overflow-wrap:anywhere}main{min-width:0}header{padding:30px 20px}.card{padding:4px 16px 16px}}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="Sections">
+<div class="brand">~/rice-bible <span>$</span></div>
+<input id="q" type="search" placeholder="filter: kvantum, grub, blur..." aria-label="Filter sections">
+<div class="links"><a href="#00-tldr-the-60-minute-glow-up"><span class="n">00</span>TL;DR: The 60-Minute Glow-Up</a>
+<a href="#01-before-you-rice-2-minute-read-saves-hours"><span class="n">01</span>Before You Rice</a>
+<a href="#02-global-themes-color-schemes"><span class="n">02</span>Global Themes &amp; Color Schemes</a>
+<a href="#03-app-style-window-decorations"><span class="n">03</span>App Style &amp; Window Decorations</a>
+<a href="#04-icons-cursors-fonts"><span class="n">04</span>Icons, Cursors &amp; Fonts</a>
+<a href="#05-panels-docks-widgets"><span class="n">05</span>Panels, Docks &amp; Widgets</a>
+<a href="#06-kwin-effects-tiling"><span class="n">06</span>KWin Effects &amp; Tiling</a>
+<a href="#07-wallpapers-static-live-shader-auto-color"><span class="n">07</span>Wallpapers</a>
+<a href="#08-boot-login-grub-plymouth-sddm"><span class="n">08</span>Boot &amp; Login</a>
+<a href="#09-terminal-shell-glow-up"><span class="n">09</span>Terminal &amp; Shell Glow-Up</a>
+<a href="#10-hacker-aesthetic-eye-candy"><span class="n">10</span>Hacker-Aesthetic Eye Candy</a>
+<a href="#11-app-theming-firefox-discord-spotify-vs-code-obsidian"><span class="n">11</span>App Theming</a>
+<a href="#12-launchers-niche-cool-software"><span class="n">12</span>Launchers &amp; Niche Cool Software</a>
+<a href="#13-dotfiles-repos-to-steal-from"><span class="n">13</span>Dotfiles Repos to Steal From</a>
+<a href="#14-reddit-inspiration-gallery"><span class="n">14</span>Reddit Inspiration Gallery</a>
+<a href="#15-paid-foss-swaps"><span class="n">15</span>Paid → FOSS Swaps</a>
+<a href="#16-starter-rice-recipes-pick-a-column-follow-it-down"><span class="n">16</span>Starter Rice Recipes</a>
+<a href="#sources"><span class="n">##</span>Sources</a></div>
+</nav>
+<main>
+<header>
+<div class="prompt">arihant@debian:~$ <b>./glow-up --kde --foss-only</b> <span class="cursor"></span></div>
+<h1>The Debian KDE<br>Rice Bible</h1>
+<p class="sub">// themes · widgets · kwin effects · terminal · boot screens · dotfiles · reddit inspo</p>
+<div class="chips"><span class="chip"><i>●</i> Debian 13 "Trixie"</span><span class="chip"><i>●</i> Plasma 6.3.6</span><span class="chip"><i>●</i> 100% free</span><span class="chip"><i>●</i> every link verified</span></div>
+</header>
+<div class="lead"><p>Updated Oct 30, 2026 · Free &amp; FOSS only · Built for Debian 13 / Plasma 6.3</p>
+</div>
+<section class="card"><h2 id="00-tldr-the-60-minute-glow-up">00 // TL;DR: The 60-Minute Glow-Up</h2>
+<p>Biggest visual jump per minute: palette, then icons/fonts, then Kvantum, then panels, then terminal. Everything here is free; anything marked "later" needs a newer Plasma than Debian 13's 6.3.</p>
+<ol>
+<li><strong>Safety net (5 min):</strong> <code>sudo apt install timeshift pipx</code>, take a snapshot, <code>pipx install konsave</code>, <code>konsave -s stock</code>. (Section 01)</li>
+<li><strong>Pick a palette + wallpaper (5 min):</strong> Catppuccin, Nord, Tokyo Night, Gruvbox or Cyberpunk. (Sections 02, 07)</li>
+<li><strong>Colors + app style (10 min):</strong> <code>sudo apt install qt-style-kvantum</code>, install your theme + its Kvantum variant. (Sections 02, 03)</li>
+<li><strong>Icons, cursor, font (5 min):</strong> <code>sudo apt install papirus-icon-theme</code>, add Bibata + a Nerd Font. (Section 04)</li>
+<li><strong>Panels (10 min):</strong> floating "fit content" dock + thin top bar, then Panel Colorizer. (Section 05)</li>
+<li><strong>Terminal (10 min):</strong> <code>sudo apt install fastfetch starship btop zsh</code>, enable Konsole blur, pick a Starship preset. (Section 09)</li>
+<li><strong>Effects (5 min):</strong> Magic Lamp + Wobbly in Desktop Effects, KDE Rounded Corners <code>.deb</code>. (Section 06)</li>
+<li><strong>Apps (10 min):</strong> textfox for Firefox, Vesktop + a theme for Discord. (Section 11)</li>
+</ol>
+<p>Save it: <code>konsave -s rice-v1</code>. Save GRUB/Plymouth/SDDM (section 08) for an evening when you have a live USB nearby. Want a ready-made look? Jump to section 16.</p>
+</section>
+<section class="card"><h2 id="01-before-you-rice-2-minute-read-saves-hours">01 // Before You Rice (2-minute read, saves hours)</h2>
+<p>Your baseline is Debian 13 "Trixie": Plasma 6.3.6, Frameworks 6.13, Qt 6.8.2, Wayland by default (<a href="https://wiki.debian.org/PkgQtKde/TrixieReleasePlans" target="_blank" rel="noopener">Debian KDE plan</a>, <a href="https://linuxiac.com/?p=179486" target="_blank" rel="noopener">linuxiac</a>). Run <code>plasmashell --version</code> to confirm. Many new widgets target Plasma 6.4+, so check each add-on's minimum version before installing.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Why</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snapshot the system</td>
+<td>Undo a broken GRUB/Plymouth/SDDM change</td>
+<td><code>sudo apt install timeshift</code></td>
+</tr>
+<tr>
+<td>Save your desktop as a profile</td>
+<td>Swap whole rices with one command</td>
+<td><code>pipx install konsave</code> then <code>konsave -s stock</code> (<a href="https://github.com/Prayag2/konsave" target="_blank" rel="noopener">Konsave</a>)</td>
+</tr>
+<tr>
+<td>Back up panels separately</td>
+<td>Panels break most often</td>
+<td>copy <code>~/.config/plasma-org.kde.plasma.desktop-appletsrc</code></td>
+</tr>
+<tr>
+<td>Use <code>pipx</code>, not <code>pip</code></td>
+<td>Debian 13 blocks system-wide pip</td>
+<td><code>sudo apt install pipx</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Security (you'll like this one):</strong> in March 2024 a KDE Store global theme called "Grey Layout" ran <code>rm -rf</code> and wiped every drive the user had mounted (<a href="https://www.bleepingcomputer.com/news/linux/kde-advises-extreme-caution-after-theme-wipes-linux-users-files/" target="_blank" rel="noopener">BleepingComputer</a>, <a href="https://www.reddit.com/r/kde/comments/1bixmbx/do_not_install_global_themes_some_wipe_out_all/" target="_blank" rel="noopener">Reddit thread</a>). KDE's warning: third-party global themes and widgets can run arbitrary code, and the store isn't audited.</p>
+<ul>
+<li>Install colors, icons and cursors as separate pieces instead of all-in-one "global theme" packs</li>
+<li>Prefer GitHub repos you can read; grep install scripts for <code>rm</code>, <code>curl</code>, <code>sudo</code> before running</li>
+<li>Only use <code>sudo</code> for things that live in system paths (SDDM, GRUB, Plymouth)</li>
+</ul>
+<p><strong>Wayland gotchas:</strong> picom, polybar, oneko, xpenguins and xscreensaver are X11-only. You don't need picom anyway: KWin already does blur, shadows and animations. Compiled KWin effects (Better Blur, Rounded Corners) must be rebuilt after every Plasma upgrade; Debian stable rarely changes KWin, which helps.</p>
+</section>
+<section class="card"><h2 id="02-global-themes-color-schemes">02 // Global Themes &amp; Color Schemes</h2>
+<p>Pick ONE palette first; every later choice (icons, terminal, Firefox, Discord) follows it. Catppuccin, Nord, Tokyo Night, Gruvbox and Dracula have ports for almost every app below.</p>
+<p><strong>Popular (safe bets)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Vibe</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catppuccin</td>
+<td>Pastel dark/light, 4 flavours x 14 accents, auto installer</td>
+<td><a href="https://github.com/catppuccin/kde" target="_blank" rel="noopener">catppuccin/kde</a></td>
+</tr>
+<tr>
+<td>Sweet</td>
+<td>Neon purple/pink on near-black</td>
+<td><a href="https://github.com/EliverLara/Sweet-kde" target="_blank" rel="noopener">EliverLara/Sweet-kde</a></td>
+</tr>
+<tr>
+<td>Nordic</td>
+<td>Cold Nord blues</td>
+<td><a href="https://github.com/EliverLara/Nordic" target="_blank" rel="noopener">EliverLara/Nordic</a></td>
+</tr>
+<tr>
+<td>Layan</td>
+<td>Soft gradient purple, very "unixporn"</td>
+<td><a href="https://github.com/vinceliuice/Layan-kde" target="_blank" rel="noopener">vinceliuice/Layan-kde</a></td>
+</tr>
+<tr>
+<td>WhiteSur</td>
+<td>macOS Big Sur clone</td>
+<td><a href="https://github.com/vinceliuice/WhiteSur-kde" target="_blank" rel="noopener">vinceliuice/WhiteSur-kde</a></td>
+</tr>
+<tr>
+<td>Colloid</td>
+<td>Clean flat, has Nord/Dracula/Gruvbox tweaks</td>
+<td><a href="https://github.com/vinceliuice/Colloid-kde" target="_blank" rel="noopener">vinceliuice/Colloid-kde</a></td>
+</tr>
+<tr>
+<td>Orchis</td>
+<td>Material-style, rounded</td>
+<td><a href="https://github.com/vinceliuice/Orchis-kde" target="_blank" rel="noopener">vinceliuice/Orchis-kde</a></td>
+</tr>
+<tr>
+<td>Graphite</td>
+<td>Grey minimal, pro look</td>
+<td><a href="https://github.com/vinceliuice/Graphite-kde-theme" target="_blank" rel="noopener">vinceliuice/Graphite-kde-theme</a></td>
+</tr>
+<tr>
+<td>Utterly Nord</td>
+<td>Glassy, translucent Nord</td>
+<td><a href="https://github.com/HimDek/Utterly-Nord-Plasma" target="_blank" rel="noopener">HimDek/Utterly-Nord-Plasma</a></td>
+</tr>
+<tr>
+<td>Dracula</td>
+<td>Classic purple dark (KDE folder inside)</td>
+<td><a href="https://github.com/dracula/gtk" target="_blank" rel="noopener">dracula/gtk</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Niche (stand-out picks)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Vibe</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cyberpunk Neon</td>
+<td>Cyan + hot pink neon, KDE + Konsole + more</td>
+<td><a href="https://github.com/Roboron3042/Cyberpunk-Neon" target="_blank" rel="noopener">Roboron3042/Cyberpunk-Neon</a></td>
+</tr>
+<tr>
+<td>Monochrome KDE</td>
+<td>Pure black and white</td>
+<td><a href="https://github.com/pwyde/monochrome-kde" target="_blank" rel="noopener">pwyde/monochrome-kde</a></td>
+</tr>
+<tr>
+<td>AeroThemePlasma</td>
+<td>Full Windows 7 Aero glass replica (targets Plasma 6.8, so look for an older release)</td>
+<td><a href="https://github.com/aeroshell-desktop/aerothemeplasma" target="_blank" rel="noopener">aeroshell-desktop/aerothemeplasma</a></td>
+</tr>
+<tr>
+<td>Ant / Andromeda</td>
+<td>Dracula-ish and deep-space blue</td>
+<td><a href="https://github.com/EliverLara/Ant" target="_blank" rel="noopener">EliverLara/Ant</a>, <a href="https://github.com/EliverLara/Andromeda-KDE" target="_blank" rel="noopener">Andromeda-KDE</a></td>
+</tr>
+<tr>
+<td>Utterly Sweet / Round</td>
+<td>Glassy candy, very round</td>
+<td><a href="https://github.com/HimDek/Utterly-Sweet-Plasma" target="_blank" rel="noopener">Utterly-Sweet</a>, <a href="https://github.com/HimDek/Utterly-Round-Plasma-Style" target="_blank" rel="noopener">Utterly-Round</a></td>
+</tr>
+<tr>
+<td>Materia / Arc</td>
+<td>Old-school favourites, still clean</td>
+<td><a href="https://github.com/PapirusDevelopmentTeam/materia-kde" target="_blank" rel="noopener">materia-kde</a>, <a href="https://github.com/PapirusDevelopmentTeam/arc-kde" target="_blank" rel="noopener">arc-kde</a></td>
+</tr>
+<tr>
+<td>Qogir, McMojave, Vimix, Fluent, Lavanda</td>
+<td>More vinceliuice sets</td>
+<td><a href="https://github.com/vinceliuice/Qogir-kde" target="_blank" rel="noopener">Qogir</a>, <a href="https://github.com/vinceliuice/McMojave-kde" target="_blank" rel="noopener">McMojave</a>, <a href="https://github.com/vinceliuice/Vimix-kde" target="_blank" rel="noopener">Vimix</a>, <a href="https://github.com/vinceliuice/Fluent-kde" target="_blank" rel="noopener">Fluent</a>, <a href="https://github.com/vinceliuice/Lavanda-kde" target="_blank" rel="noopener">Lavanda</a></td>
+</tr>
+<tr>
+<td>Aritim Dark</td>
+<td>Muted dark (author calls it abandoned)</td>
+<td><a href="https://github.com/Mrcuve0/Aritim-Dark" target="_blank" rel="noopener">Mrcuve0/Aritim-Dark</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>KDE Store hacker finds</strong> (<a href="https://store.kde.org/search/projectSearchText/cyberpunk/f/tags/" target="_blank" rel="noopener">cyberpunk search</a>): Daemon-2.0 (Kvantum, Cyberpunk 2077-inspired), CyberHack (Matrix-like glowing Kvantum), Xenon (alien-shaped glowing window decoration), CyberGRUB-2077 (bootloader).</p>
+<p><strong>Built-in, zero-install:</strong> System Settings &gt; Colors &gt; accent color "from wallpaper" tints the whole desktop automatically.</p>
+</section>
+<section class="card"><h2 id="03-app-style-window-decorations">03 // App Style &amp; Window Decorations</h2>
+<p>This layer decides how every window looks: transparency, rounded corners, title-bar buttons. Version-pin anything compiled, because Debian 13 is on Plasma 6.3.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Debian 13 install</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kvantum</td>
+<td>SVG theme engine: translucent, blurred app styles</td>
+<td><code>sudo apt install qt-style-kvantum</code> (<a href="https://packages.debian.org/src:kvantum" target="_blank" rel="noopener">Debian pkg</a>)</td>
+<td><a href="https://github.com/tsujan/Kvantum" target="_blank" rel="noopener">tsujan/Kvantum</a></td>
+</tr>
+<tr>
+<td>Klassy</td>
+<td>Wild title-bar buttons, outlines, round corners</td>
+<td>Latest needs Plasma 6.6, so build branch <code>plasma6.3</code> / tag <code>v6.3</code></td>
+<td><a href="https://github.com/paulmcauley/klassy" target="_blank" rel="noopener">paulmcauley/klassy</a></td>
+</tr>
+<tr>
+<td>Darkly</td>
+<td>Translucent app style (Lightly's Plasma 6 successor)</td>
+<td>Use release <code>v0.5.25</code> (for Plasma below 6.5)</td>
+<td><a href="https://github.com/Bali10050/Darkly" target="_blank" rel="noopener">Bali10050/Darkly</a></td>
+</tr>
+<tr>
+<td>KDE Rounded Corners</td>
+<td>Rounds and outlines every window, X11 + Wayland</td>
+<td>Ready-made Debian 13 <code>.deb</code> linked in README</td>
+<td><a href="https://github.com/matinlotfali/KDE-Rounded-Corners" target="_blank" rel="noopener">matinlotfali/KDE-Rounded-Corners</a></td>
+</tr>
+<tr>
+<td>Sierra Breeze Enhanced</td>
+<td>macOS-style traffic-light buttons</td>
+<td>Build from source</td>
+<td><a href="https://github.com/kupiqu/SierraBreezeEnhanced" target="_blank" rel="noopener">kupiqu/SierraBreezeEnhanced</a></td>
+</tr>
+<tr>
+<td>Lightly</td>
+<td>Original translucent style</td>
+<td>Archived, skip it, use Darkly</td>
+<td><a href="https://github.com/Luwx/Lightly" target="_blank" rel="noopener">Luwx/Lightly</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Kvantum themes to pair with your palette:</strong> <a href="https://github.com/catppuccin/kvantum" target="_blank" rel="noopener">Catppuccin</a>, <a href="https://github.com/GabePoel/KvLibadwaita" target="_blank" rel="noopener">KvLibadwaita</a> (GNOME look), <a href="https://github.com/TheGlitchh/Gruvbox-Kvantum" target="_blank" rel="noopener">Gruvbox</a>, plus the 20+ built-ins in <code>qt-style-kvantum-themes</code>. Kvantum Manager has a per-theme blur toggle.</p>
+<p><strong>Built-in Breeze tricks:</strong> System Settings &gt; Window Decorations &gt; Breeze &gt; set button size, border "No borders", and enable "Draw a circle around close button" for an instant cleaner look.</p>
+</section>
+<section class="card"><h2 id="04-icons-cursors-fonts">04 // Icons, Cursors &amp; Fonts</h2>
+<p>Icons and fonts are the cheapest, safest upgrade: no code runs, nothing breaks. Drop icon/cursor folders in <code>~/.local/share/icons</code>, fonts in <code>~/.local/share/fonts</code>, then <code>fc-cache -fv</code>.</p>
+<p><strong>Icons</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Pack</th>
+<th>Vibe</th>
+<th>Tier</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Papirus</td>
+<td>The default answer; <code>sudo apt install papirus-icon-theme</code></td>
+<td>Popular</td>
+<td><a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme" target="_blank" rel="noopener">repo</a></td>
+</tr>
+<tr>
+<td>papirus-folders</td>
+<td>Recolor Papirus folders to match your accent</td>
+<td>Popular</td>
+<td><a href="https://github.com/PapirusDevelopmentTeam/papirus-folders" target="_blank" rel="noopener">repo</a>, <a href="https://github.com/catppuccin/papirus-folders" target="_blank" rel="noopener">Catppuccin version</a></td>
+</tr>
+<tr>
+<td>Tela / Tela-circle</td>
+<td>Bright, rounded, many colors</td>
+<td>Popular</td>
+<td><a href="https://github.com/vinceliuice/Tela-icon-theme" target="_blank" rel="noopener">Tela</a>, <a href="https://github.com/vinceliuice/Tela-circle-icon-theme" target="_blank" rel="noopener">Tela-circle</a></td>
+</tr>
+<tr>
+<td>Colloid</td>
+<td>Flat, pastel, matches Colloid theme</td>
+<td>Popular</td>
+<td><a href="https://github.com/vinceliuice/Colloid-icon-theme" target="_blank" rel="noopener">repo</a></td>
+</tr>
+<tr>
+<td>WhiteSur / McMojave-circle</td>
+<td>macOS-style</td>
+<td>Popular</td>
+<td><a href="https://github.com/vinceliuice/WhiteSur-icon-theme" target="_blank" rel="noopener">WhiteSur</a>, <a href="https://github.com/vinceliuice/McMojave-circle" target="_blank" rel="noopener">McMojave</a></td>
+</tr>
+<tr>
+<td>Kora</td>
+<td>Soft 3D-ish, very polished</td>
+<td>Popular</td>
+<td><a href="https://github.com/bikass/kora" target="_blank" rel="noopener">bikass/kora</a></td>
+</tr>
+<tr>
+<td>Fluent / Qogir</td>
+<td>Windows 11 feel / flat minimal</td>
+<td>Popular</td>
+<td><a href="https://github.com/vinceliuice/Fluent-icon-theme" target="_blank" rel="noopener">Fluent</a>, <a href="https://github.com/vinceliuice/Qogir-icon-theme" target="_blank" rel="noopener">Qogir</a></td>
+</tr>
+<tr>
+<td>Candy</td>
+<td>Neon gradient icons, pairs with Sweet</td>
+<td>Niche</td>
+<td><a href="https://github.com/EliverLara/candy-icons" target="_blank" rel="noopener">EliverLara/candy-icons</a></td>
+</tr>
+<tr>
+<td>Reversal</td>
+<td>Colorful, many accent variants</td>
+<td>Niche</td>
+<td><a href="https://github.com/yeyushengfan258/Reversal-icon-theme" target="_blank" rel="noopener">repo</a></td>
+</tr>
+<tr>
+<td>BeautyLine, YAMIS, Cyberpunk Technotronic</td>
+<td>Neon line / monochrome / synthwave</td>
+<td>Niche</td>
+<td><a href="https://store.kde.org" target="_blank" rel="noopener">KDE Store</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Cursors</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Cursor</th>
+<th>Vibe</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bibata</td>
+<td>Rounded, the r/unixporn standard</td>
+<td><a href="https://github.com/ful1e5/Bibata_Cursor" target="_blank" rel="noopener">ful1e5/Bibata_Cursor</a></td>
+</tr>
+<tr>
+<td>Catppuccin</td>
+<td>Matches the palette</td>
+<td><a href="https://github.com/catppuccin/cursors" target="_blank" rel="noopener">catppuccin/cursors</a></td>
+</tr>
+<tr>
+<td>Phinger</td>
+<td>Pointy, playful</td>
+<td><a href="https://github.com/phisch/phinger-cursors" target="_blank" rel="noopener">phisch/phinger-cursors</a></td>
+</tr>
+<tr>
+<td>Nordzy / Volantes</td>
+<td>Nord / soft material</td>
+<td><a href="https://github.com/guillaumeboehm/Nordzy-cursors" target="_blank" rel="noopener">Nordzy</a>, <a href="https://github.com/varlesh/volantes-cursors" target="_blank" rel="noopener">Volantes</a></td>
+</tr>
+<tr>
+<td>Breeze Hacked</td>
+<td>Breeze cursor with custom colors</td>
+<td><a href="https://github.com/clayrisser/breeze-hacked-cursor-theme" target="_blank" rel="noopener">clayrisser/breeze-hacked-cursor-theme</a></td>
+</tr>
+<tr>
+<td>Apple</td>
+<td>macOS cursor</td>
+<td><a href="https://github.com/ful1e5/apple_cursor" target="_blank" rel="noopener">ful1e5/apple_cursor</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Fonts</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Font</th>
+<th>Use</th>
+<th>Get it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nerd Fonts</td>
+<td>Required for icons in prompts, fetch tools, TUIs</td>
+<td><a href="https://github.com/ryanoasis/nerd-fonts" target="_blank" rel="noopener">ryanoasis/nerd-fonts</a> releases</td>
+</tr>
+<tr>
+<td>JetBrains Mono / Fira Code</td>
+<td>Ligature terminal fonts</td>
+<td><code>fonts-jetbrains-mono</code>, <code>fonts-firacode</code> (apt)</td>
+</tr>
+<tr>
+<td>Iosevka</td>
+<td>Narrow, fits more on a laptop screen</td>
+<td><a href="https://github.com/be5invis/Iosevka" target="_blank" rel="noopener">be5invis/Iosevka</a></td>
+</tr>
+<tr>
+<td>Maple Mono</td>
+<td>Rounded, cursive italics, very rice-y</td>
+<td><a href="https://github.com/subframe7536/maple-font" target="_blank" rel="noopener">subframe7536/maple-font</a></td>
+</tr>
+<tr>
+<td>Monaspace</td>
+<td>5 mixable families from GitHub Next</td>
+<td><a href="https://github.com/githubnext/monaspace" target="_blank" rel="noopener">githubnext/monaspace</a></td>
+</tr>
+<tr>
+<td>Cascadia Code</td>
+<td>Microsoft's terminal font</td>
+<td><a href="https://github.com/microsoft/cascadia-code" target="_blank" rel="noopener">microsoft/cascadia-code</a></td>
+</tr>
+<tr>
+<td>Inter / Geist</td>
+<td>UI font swap for a modern look</td>
+<td><a href="https://github.com/rsms/inter" target="_blank" rel="noopener">rsms/inter</a>, <a href="https://github.com/vercel/geist-font" target="_blank" rel="noopener">vercel/geist-font</a></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="card"><h2 id="05-panels-docks-widgets">05 // Panels, Docks &amp; Widgets</h2>
+<p>Panel Colorizer is the single biggest upgrade here: it turns plain Plasma panels into floating "islands", WM-style bars or docks. Latte Dock is dead; don't install it, Plasma's own panels replace it.</p>
+<p><strong>Free built-in moves (no installs):</strong> right-click panel &gt; Edit Mode &gt; Floating + width "Fit content" = instant macOS-style dock. Add a second thin panel at the top for a status bar. Swap the launcher via right-click &gt; Show Alternatives &gt; Application Dashboard (fullscreen).</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Widget</th>
+<th>What it adds</th>
+<th>Tier</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Panel Colorizer</td>
+<td>Islands, per-widget colors, blur, shadows, presets, auto-switch when windows maximize</td>
+<td>Popular</td>
+<td><a href="https://github.com/luisbocanegra/plasma-panel-colorizer" target="_blank" rel="noopener">luisbocanegra/plasma-panel-colorizer</a></td>
+</tr>
+<tr>
+<td>Application Title Bar</td>
+<td>Window title + buttons inside the top panel (GNOME/macOS look)</td>
+<td>Popular</td>
+<td><a href="https://github.com/antroids/application-title-bar" target="_blank" rel="noopener">antroids/application-title-bar</a></td>
+</tr>
+<tr>
+<td>Kurve</td>
+<td>Audio visualizer bars in the panel (uses <code>cava</code>)</td>
+<td>Popular</td>
+<td><a href="https://github.com/luisbocanegra/kurve" target="_blank" rel="noopener">luisbocanegra/kurve</a></td>
+</tr>
+<tr>
+<td>Resources Monitor</td>
+<td>CPU / RAM / network graphs in the panel</td>
+<td>Popular</td>
+<td><a href="https://github.com/orblazer/plasma-applet-resources-monitor" target="_blank" rel="noopener">orblazer/plasma-applet-resources-monitor</a></td>
+</tr>
+<tr>
+<td>Panel Spacer Extended</td>
+<td>Spacer with mouse gestures and actions</td>
+<td>Popular</td>
+<td><a href="https://github.com/luisbocanegra/plasma-panel-spacer-extended" target="_blank" rel="noopener">luisbocanegra/plasma-panel-spacer-extended</a></td>
+</tr>
+<tr>
+<td>Command Output</td>
+<td>Shows any command's output in the panel: public IP, VPN, <code>tailscale status</code></td>
+<td>Niche, very cyber</td>
+<td><a href="https://github.com/Zren/plasma-applet-commandoutput" target="_blank" rel="noopener">Zren/plasma-applet-commandoutput</a></td>
+</tr>
+<tr>
+<td>Kara</td>
+<td>i3/Hyprland-style workspace dots pager (now needs compiling)</td>
+<td>Niche</td>
+<td><a href="https://github.com/dhruv8sh/kara" target="_blank" rel="noopener">dhruv8sh/kara</a></td>
+</tr>
+<tr>
+<td>Window Buttons / Window Title</td>
+<td>Separate min-max-close and title applets</td>
+<td>Niche</td>
+<td><a href="https://github.com/moodyhunter/applet-window-buttons6" target="_blank" rel="noopener">applet-window-buttons6</a>, <a href="https://github.com/dhruv8sh/plasma6-window-title-applet" target="_blank" rel="noopener">window-title</a></td>
+</tr>
+<tr>
+<td>Tiled Menu</td>
+<td>Windows 10-style tile start menu</td>
+<td>Niche</td>
+<td><a href="https://github.com/Zren/plasma-applet-tiledmenu" target="_blank" rel="noopener">Zren/plasma-applet-tiledmenu</a></td>
+</tr>
+<tr>
+<td>Liquid Glass widgets</td>
+<td>macOS Tahoe / iOS glass widgets (new)</td>
+<td>Niche</td>
+<td><a href="https://github.com/jaxparrow07/liquidglass-kde-widgets" target="_blank" rel="noopener">jaxparrow07/liquidglass-kde-widgets</a></td>
+</tr>
+<tr>
+<td>Conky</td>
+<td>Classic desktop system-stats overlay; <code>sudo apt install conky-all</code></td>
+<td>Classic</td>
+<td><a href="https://github.com/brndnmtthws/conky" target="_blank" rel="noopener">brndnmtthws/conky</a> (Wayland "with caveats")</td>
+</tr>
+</tbody>
+</table></div>
+<p>Also in Get New Widgets: Kpple Menu (Apple menu), Plasma Drawer (launcher), Modern Clock, Apdatifier (update notifier). Panel Colorizer and Kurve say to use a Plasma close to the latest; if the newest version errors on 6.3, install an older <code>.plasmoid</code> from the repo's Releases page.</p>
+</section>
+<section class="card"><h2 id="06-kwin-effects-tiling">06 // KWin Effects &amp; Tiling</h2>
+<p>KWin effects are where KDE beats every other desktop for eye candy. Start with the built-ins (System Settings &gt; Desktop Effects): Wobbly Windows, Magic Lamp, Fall Apart, Glide, Blur, Overview. Desktop Cube: enable it there if listed, otherwise build <a href="https://github.com/zzag/kwin-effects-cube" target="_blank" rel="noopener">zzag/kwin-effects-cube</a>.</p>
+<p><strong>Effects</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Effect</th>
+<th>What it looks like</th>
+<th>Debian 13 (Plasma 6.3)</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Better Blur</td>
+<td>Blur behind ANY window (frosted Konsole, Dolphin, Discord)</td>
+<td>Build release <code>v1.3.6</code> (covers 6.0 to 6.3.5)</td>
+<td><a href="https://github.com/taj-ny/kwin-effects-forceblur" target="_blank" rel="noopener">taj-ny/kwin-effects-forceblur</a></td>
+</tr>
+<tr>
+<td>Better Blur DX</td>
+<td>Maintained successor of Better Blur</td>
+<td>Plasma 6.5+ only, so later</td>
+<td><a href="https://github.com/xarblu/kwin-effects-better-blur-dx" target="_blank" rel="noopener">xarblu/kwin-effects-better-blur-dx</a></td>
+</tr>
+<tr>
+<td>Glass</td>
+<td>Apple "liquid glass" refraction + blur</td>
+<td>Plasma 6.6+ Wayland only, so later</td>
+<td><a href="https://github.com/4v3ngR/kwin-effects-glass" target="_blank" rel="noopener">4v3ngR/kwin-effects-glass</a></td>
+</tr>
+<tr>
+<td>KDE Rounded Corners</td>
+<td>Rounded, outlined windows</td>
+<td>Debian 13 <code>.deb</code> in README</td>
+<td><a href="https://github.com/matinlotfali/KDE-Rounded-Corners" target="_blank" rel="noopener">matinlotfali/KDE-Rounded-Corners</a></td>
+</tr>
+<tr>
+<td>Burn My Windows</td>
+<td>Windows open/close with Fire, Glitch, Doom, Hexagon, Energize</td>
+<td>KWin 5.25+, KDE Store or GitHub</td>
+<td><a href="https://github.com/Schneegans/Burn-My-Windows" target="_blank" rel="noopener">Schneegans/Burn-My-Windows</a></td>
+</tr>
+<tr>
+<td>Geometry Change</td>
+<td>Smooth animation when windows move/resize/tile</td>
+<td>KWin script</td>
+<td><a href="https://github.com/peterfajdiga/kwin4_effect_geometry_change" target="_blank" rel="noopener">peterfajdiga/kwin4_effect_geometry_change</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Tiling (keep KDE, get Hyprland-style workflow)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Style</th>
+<th>Debian 13</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Built-in tiling</td>
+<td>Draw your own tile layout, Shift-drag to snap</td>
+<td>Press <code>Meta+T</code></td>
+<td>Plasma</td>
+</tr>
+<tr>
+<td>Krohnkite</td>
+<td>Auto-tiling like dwm/i3, gaps, layouts</td>
+<td>KWin 6 script, <code>kpackagetool6</code></td>
+<td><a href="https://github.com/anametologin/krohnkite" target="_blank" rel="noopener">anametologin/krohnkite</a></td>
+</tr>
+<tr>
+<td>Karousel</td>
+<td>Scrollable columns like niri/PaperWM</td>
+<td>Extract to <code>~/.local/share/kwin/scripts/</code></td>
+<td><a href="https://github.com/peterfajdiga/karousel" target="_blank" rel="noopener">peterfajdiga/karousel</a></td>
+</tr>
+<tr>
+<td>KZones</td>
+<td>Windows FancyZones-style drop zones</td>
+<td>KWin Scripts &gt; Get New</td>
+<td><a href="https://github.com/gerritdevriese/kzones" target="_blank" rel="noopener">gerritdevriese/kzones</a></td>
+</tr>
+<tr>
+<td>Polonium</td>
+<td>Polished auto-tiler</td>
+<td>Needs Plasma 6.4+, so later</td>
+<td><a href="https://github.com/zeroxoneafour/polonium" target="_blank" rel="noopener">zeroxoneafour/polonium</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>After any Plasma upgrade, compiled effects (Better Blur, Rounded Corners) need a clean rebuild or reinstall, or they silently stop loading.</p>
+</section>
+<section class="card"><h2 id="07-wallpapers-static-live-shader-auto-color">07 // Wallpapers (static, live, shader, auto-color)</h2>
+<p>The wallpaper sets the palette for everything else, so choose it early, then let a color generator theme the desktop from it.</p>
+<p><strong>Static wallpaper repos (huge, curated)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/dharmx/walls" target="_blank" rel="noopener">dharmx/walls</a></td>
+<td>Massive categorized collection</td>
+</tr>
+<tr>
+<td><a href="https://github.com/D3Ext/aesthetic-wallpapers" target="_blank" rel="noopener">D3Ext/aesthetic-wallpapers</a></td>
+<td>Rice-friendly aesthetic picks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/FrenzyExists/wallpapers" target="_blank" rel="noopener">FrenzyExists/wallpapers</a>, <a href="https://github.com/makccr/wallpapers" target="_blank" rel="noopener">makccr/wallpapers</a>, <a href="https://github.com/mylinuxforwork/wallpaper" target="_blank" rel="noopener">mylinuxforwork/wallpaper</a></td>
+<td>Mixed, popular with r/unixporn</td>
+</tr>
+<tr>
+<td><a href="https://github.com/zhichaoh/catppuccin-wallpapers" target="_blank" rel="noopener">zhichaoh/catppuccin-wallpapers</a>, <a href="https://github.com/orangci/walls-catppuccin-mocha" target="_blank" rel="noopener">orangci/walls-catppuccin-mocha</a></td>
+<td>Catppuccin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/AngelJumbo/gruvbox-wallpapers" target="_blank" rel="noopener">AngelJumbo/gruvbox-wallpapers</a></td>
+<td>Gruvbox</td>
+</tr>
+<tr>
+<td><a href="https://github.com/linuxdotexe/nordic-wallpapers" target="_blank" rel="noopener">linuxdotexe/nordic-wallpapers</a></td>
+<td>Nord</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Live / animated (all free)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Smart Video Wallpaper Reborn</td>
+<td>Video wallpaper on desktop + lock screen, pauses when windows cover it</td>
+<td><a href="https://github.com/luisbocanegra/plasma-smart-video-wallpaper-reborn" target="_blank" rel="noopener">luisbocanegra/plasma-smart-video-wallpaper-reborn</a></td>
+</tr>
+<tr>
+<td>Shader Wallpaper</td>
+<td>270+ GLSL shaders, Shadertoy import, reacts to mouse and windows; Debian 13 build steps included</td>
+<td><a href="https://github.com/y4my4my4m/kde-shader-wallpaper" target="_blank" rel="noopener">y4my4my4m/kde-shader-wallpaper</a></td>
+</tr>
+<tr>
+<td>Waywallen</td>
+<td>Wallpaper manager (image, video, Wallhaven plugins), Flatpak on Flathub</td>
+<td><a href="https://github.com/waywallen/waywallen" target="_blank" rel="noopener">waywallen/waywallen</a></td>
+</tr>
+<tr>
+<td>Dynamic Wallpaper</td>
+<td>macOS-style wallpapers that shift with the sun/time</td>
+<td><a href="https://github.com/zzag/plasma5-wallpapers-dynamic" target="_blank" rel="noopener">zzag/plasma5-wallpapers-dynamic</a> (master = Plasma 6)</td>
+</tr>
+<tr>
+<td>Wallhaven Reborn</td>
+<td>Auto-rotates fresh wallpapers from Wallhaven</td>
+<td><a href="https://github.com/Blacksuan19/plasma-wallpaper-wallhaven-reborn" target="_blank" rel="noopener">Blacksuan19/plasma-wallpaper-wallhaven-reborn</a></td>
+</tr>
+<tr>
+<td>Wallpaper Effects</td>
+<td>Blur/dim the wallpaper when windows are active</td>
+<td><a href="https://github.com/luisbocanegra/plasma-wallpaper-effects" target="_blank" rel="noopener">luisbocanegra/plasma-wallpaper-effects</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Colors from your wallpaper (auto-theming)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KDE Material You Colors</td>
+<td>Generates Plasma light/dark color schemes from the current wallpaper (+ pywal)</td>
+<td><a href="https://github.com/luisbocanegra/kde-material-you-colors" target="_blank" rel="noopener">luisbocanegra/kde-material-you-colors</a></td>
+</tr>
+<tr>
+<td>pywal16</td>
+<td>Maintained pywal fork: terminal + app palettes from an image</td>
+<td><a href="https://github.com/eylles/pywal16" target="_blank" rel="noopener">eylles/pywal16</a></td>
+</tr>
+<tr>
+<td>matugen</td>
+<td>Material You palette generator with templates for any app</td>
+<td><a href="https://github.com/InioX/matugen" target="_blank" rel="noopener">InioX/matugen</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Original <a href="https://github.com/dylanaraps/pywal" target="_blank" rel="noopener">pywal</a> hasn't been updated in years; pywal16 is the active 16-color fork. Wallpaper Engine (paid) alternatives are in section 15.</p>
+</section>
+<section class="card"><h2 id="08-boot-login-grub-plymouth-sddm">08 // Boot &amp; Login (GRUB, Plymouth, SDDM)</h2>
+<p>These run as root before your desktop exists, so take a Timeshift snapshot first and keep a live USB handy. Payoff: the machine looks custom from the first second.</p>
+<p><strong>GRUB themes</strong> (set <code>GRUB_THEME=</code> in <code>/etc/default/grub</code>, then <code>sudo update-grub</code>)</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Vibe</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grub2-themes</td>
+<td>Tela, Vimix, Stylish, WhiteSur; one install script</td>
+<td><a href="https://github.com/vinceliuice/grub2-themes" target="_blank" rel="noopener">vinceliuice/grub2-themes</a></td>
+</tr>
+<tr>
+<td>Elegant</td>
+<td>Blurred wallpaper + floating menu</td>
+<td><a href="https://github.com/vinceliuice/Elegant-grub2-themes" target="_blank" rel="noopener">vinceliuice/Elegant-grub2-themes</a></td>
+</tr>
+<tr>
+<td>Fallout</td>
+<td>Fallout terminal style, peak hacker vibe</td>
+<td><a href="https://github.com/shvchk/fallout-grub-theme" target="_blank" rel="noopener">shvchk/fallout-grub-theme</a></td>
+</tr>
+<tr>
+<td>Catppuccin</td>
+<td>Palette-matched</td>
+<td><a href="https://github.com/catppuccin/grub" target="_blank" rel="noopener">catppuccin/grub</a></td>
+</tr>
+<tr>
+<td>Distro themes</td>
+<td>Big distro logos (Debian included)</td>
+<td><a href="https://github.com/AdisonCavani/distro-grub-themes" target="_blank" rel="noopener">AdisonCavani/distro-grub-themes</a></td>
+</tr>
+<tr>
+<td>HyperFluent / Xenlism</td>
+<td>Windows-11-ish / minimal</td>
+<td><a href="https://github.com/Coopydood/HyperFluent-GRUB-Theme" target="_blank" rel="noopener">Coopydood/HyperFluent-GRUB-Theme</a>, <a href="https://github.com/xenlism/Grub-themes" target="_blank" rel="noopener">xenlism/Grub-themes</a></td>
+</tr>
+<tr>
+<td>Game/anime sets</td>
+<td>Sekiro, Star Rail, anime</td>
+<td><a href="https://github.com/semimqmo/sekiro_grub_theme" target="_blank" rel="noopener">sekiro</a>, <a href="https://github.com/voidlhf/StarRailGrubThemes" target="_blank" rel="noopener">StarRail</a>, <a href="https://github.com/13atm01/GRUB-Theme" target="_blank" rel="noopener">13atm01</a></td>
+</tr>
+<tr>
+<td>Gorgeous GRUB</td>
+<td>Curated list of dozens more</td>
+<td><a href="https://github.com/Jacksaur/Gorgeous-GRUB" target="_blank" rel="noopener">Jacksaur/Gorgeous-GRUB</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Preview themes without rebooting: <a href="https://github.com/hartwork/grub2-theme-preview" target="_blank" rel="noopener">hartwork/grub2-theme-preview</a>. Dual-boot tip: if Windows vanishes from the menu, add <code>GRUB_DISABLE_OS_PROBER=false</code> and rerun <code>update-grub</code>.</p>
+<p><strong>rEFInd (prettier boot manager for dual boot):</strong> <code>sudo apt install refind</code>, then theme it with <a href="https://github.com/bobafetthotmail/refind-theme-regular" target="_blank" rel="noopener">refind-theme-regular</a>, <a href="https://github.com/EvanPurkhiser/rEFInd-Minimal" target="_blank" rel="noopener">rEFInd-Minimal</a> or <a href="https://github.com/catppuccin/refind" target="_blank" rel="noopener">catppuccin/refind</a>.</p>
+<p><strong>Plymouth (boot animation)</strong></p>
+<ul>
+<li><a href="https://github.com/adi1090x/plymouth-themes" target="_blank" rel="noopener">adi1090x/plymouth-themes</a>: huge collection ported from Android boot animations (angular, cuts, hexagon, etc.)</li>
+<li><a href="https://github.com/catppuccin/plymouth" target="_blank" rel="noopener">catppuccin/plymouth</a></li>
+<li>Debian steps: <code>sudo apt install plymouth</code>, copy the theme to <code>/usr/share/plymouth/themes/</code>, register it with <code>update-alternatives</code>, add <code>splash</code> to <code>GRUB_CMDLINE_LINUX_DEFAULT</code>, run <code>sudo update-grub &amp;&amp; sudo update-initramfs -u</code></li>
+</ul>
+<p><strong>SDDM (login screen)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Vibe</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sddm-astronaut</td>
+<td>A series of Qt6 themes incl. animated wallpapers; README lists exact Debian 13 packages</td>
+<td><a href="https://github.com/Keyitdev/sddm-astronaut-theme" target="_blank" rel="noopener">Keyitdev/sddm-astronaut-theme</a></td>
+</tr>
+<tr>
+<td>SilentSDDM</td>
+<td>Modern, very configurable (needs SDDM 0.21+)</td>
+<td><a href="https://github.com/uiriansan/SilentSDDM" target="_blank" rel="noopener">uiriansan/SilentSDDM</a></td>
+</tr>
+<tr>
+<td>Catppuccin</td>
+<td>Palette-matched</td>
+<td><a href="https://github.com/catppuccin/sddm" target="_blank" rel="noopener">catppuccin/sddm</a></td>
+</tr>
+<tr>
+<td>Where Is My SDDM Theme</td>
+<td>Ultra-minimal password-only</td>
+<td><a href="https://github.com/stepanzubkov/where-is-my-sddm-theme" target="_blank" rel="noopener">stepanzubkov/where-is-my-sddm-theme</a></td>
+</tr>
+<tr>
+<td>Sugar Dark / Chili</td>
+<td>Classics (older, may need Qt5 bits)</td>
+<td><a href="https://github.com/MarianArlt/sddm-sugar-dark" target="_blank" rel="noopener">sugar-dark</a>, <a href="https://github.com/MarianArlt/sddm-chili" target="_blank" rel="noopener">chili</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Splash screen</strong> (the logo between login and desktop): System Settings &gt; Colors &amp; Themes &gt; Splash Screen &gt; Get New.</p>
+</section>
+<section class="card"><h2 id="09-terminal-shell-glow-up">09 // Terminal &amp; Shell Glow-Up</h2>
+<p>The terminal is in every screenshot, so it's worth 30 minutes. Fast win: <code>sudo apt install fastfetch starship btop zsh</code>, then pick a Starship preset.</p>
+<p><strong>Terminal emulators</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Terminal</th>
+<th>Why</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Konsole (built-in)</td>
+<td>Profiles &gt; Appearance: background blur + transparency, Catppuccin/Dracula schemes</td>
+<td><a href="https://github.com/catppuccin/konsole" target="_blank" rel="noopener">catppuccin/konsole</a>, <a href="https://github.com/dracula/konsole" target="_blank" rel="noopener">dracula/konsole</a></td>
+</tr>
+<tr>
+<td>Yakuake</td>
+<td>Quake-style drop-down terminal on F12; <code>sudo apt install yakuake</code></td>
+<td>KDE app</td>
+</tr>
+<tr>
+<td>Kitty</td>
+<td>GPU-fast, shows images, <code>kitty +kitten themes</code> browser</td>
+<td><a href="https://github.com/kovidgoyal/kitty" target="_blank" rel="noopener">kovidgoyal/kitty</a></td>
+</tr>
+<tr>
+<td>WezTerm</td>
+<td>Lua-configured, tabs, multiplexing</td>
+<td><a href="https://github.com/wez/wezterm" target="_blank" rel="noopener">wez/wezterm</a></td>
+</tr>
+<tr>
+<td>Alacritty</td>
+<td>Minimal, fast, TOML config</td>
+<td><a href="https://github.com/alacritty/alacritty" target="_blank" rel="noopener">alacritty/alacritty</a></td>
+</tr>
+<tr>
+<td>Ghostty</td>
+<td>Newer native terminal, popular on r/unixporn</td>
+<td><a href="https://github.com/ghostty-org/ghostty" target="_blank" rel="noopener">ghostty-org/ghostty</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Color scheme dumps for every terminal: <a href="https://github.com/mbadolato/iTerm2-Color-Schemes" target="_blank" rel="noopener">iTerm2-Color-Schemes</a> (has Konsole/Kitty/WezTerm exports), <a href="https://github.com/Gogh-Co/Gogh" target="_blank" rel="noopener">Gogh</a>.</p>
+<p><strong>Shell + prompt</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Install / Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starship</td>
+<td>Fast cross-shell prompt; presets like Tokyo Night, Gruvbox Rainbow, Pastel Powerline</td>
+<td><code>apt install starship</code> (<a href="https://github.com/starship/starship" target="_blank" rel="noopener">repo</a>, <a href="https://github.com/catppuccin/starship" target="_blank" rel="noopener">Catppuccin</a>)</td>
+</tr>
+<tr>
+<td>Oh My Zsh</td>
+<td>Zsh plugin framework</td>
+<td><a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">ohmyzsh/ohmyzsh</a></td>
+</tr>
+<tr>
+<td>zsh-autosuggestions + syntax-highlighting</td>
+<td>Fish-like grey suggestions and colored commands</td>
+<td><a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">autosuggestions</a>, <a href="https://github.com/zsh-users/zsh-syntax-highlighting" target="_blank" rel="noopener">syntax-highlighting</a></td>
+</tr>
+<tr>
+<td>Oh My Posh</td>
+<td>Prompt engine with tons of themes</td>
+<td><a href="https://github.com/JanDeDobbeleer/oh-my-posh" target="_blank" rel="noopener">JanDeDobbeleer/oh-my-posh</a></td>
+</tr>
+<tr>
+<td>Powerlevel10k</td>
+<td>Iconic, but README says no new features are coming</td>
+<td><a href="https://github.com/romkatv/powerlevel10k" target="_blank" rel="noopener">romkatv/powerlevel10k</a></td>
+</tr>
+<tr>
+<td>Atuin</td>
+<td>Searchable shell history with end-to-end encrypted sync</td>
+<td><a href="https://github.com/atuinsh/atuin" target="_blank" rel="noopener">atuinsh/atuin</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Prettier everyday CLI</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Replaces</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eza</td>
+<td><code>ls</code> with icons, colors, git status</td>
+<td><a href="https://github.com/eza-community/eza" target="_blank" rel="noopener">eza-community/eza</a></td>
+</tr>
+<tr>
+<td>bat</td>
+<td><code>cat</code> with syntax highlighting</td>
+<td><a href="https://github.com/sharkdp/bat" target="_blank" rel="noopener">sharkdp/bat</a></td>
+</tr>
+<tr>
+<td>zoxide + fzf</td>
+<td>Smart <code>cd</code> + fuzzy finder</td>
+<td><a href="https://github.com/ajeetdsouza/zoxide" target="_blank" rel="noopener">zoxide</a>, <a href="https://github.com/junegunn/fzf" target="_blank" rel="noopener">fzf</a></td>
+</tr>
+<tr>
+<td>btop / bottom</td>
+<td><code>top</code>, but gorgeous and themeable</td>
+<td><a href="https://github.com/aristocratos/btop" target="_blank" rel="noopener">btop</a> (<code>apt install btop</code>), <a href="https://github.com/ClementTsang/bottom" target="_blank" rel="noopener">bottom</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Fetch tools (the screenshot centerpiece)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Note</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fastfetch</td>
+<td>The standard now (neofetch is archived); <code>apt install fastfetch</code> on Debian 13, preset configs in repo</td>
+<td><a href="https://github.com/fastfetch-cli/fastfetch" target="_blank" rel="noopener">fastfetch-cli/fastfetch</a></td>
+</tr>
+<tr>
+<td>hyfetch</td>
+<td>fetch with flag color gradients</td>
+<td><a href="https://github.com/hykilpikonna/hyfetch" target="_blank" rel="noopener">hykilpikonna/hyfetch</a></td>
+</tr>
+<tr>
+<td>pfetch / macchina</td>
+<td>Tiny / fast and themeable</td>
+<td><a href="https://github.com/dylanaraps/pfetch" target="_blank" rel="noopener">pfetch</a>, <a href="https://github.com/Macchina-CLI/macchina" target="_blank" rel="noopener">macchina</a></td>
+</tr>
+<tr>
+<td>onefetch</td>
+<td>Fetch for a git repo (languages, authors)</td>
+<td><a href="https://github.com/o2sh/onefetch" target="_blank" rel="noopener">o2sh/onefetch</a></td>
+</tr>
+<tr>
+<td>neofetch-themes</td>
+<td>Pre-made ASCII art fetch layouts</td>
+<td><a href="https://github.com/Chick2D/neofetch-themes" target="_blank" rel="noopener">Chick2D/neofetch-themes</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>TUI apps that look amazing</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>App</th>
+<th>What</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yazi</td>
+<td>File manager with image previews</td>
+<td><a href="https://github.com/sxyazi/yazi" target="_blank" rel="noopener">sxyazi/yazi</a></td>
+</tr>
+<tr>
+<td>superfile</td>
+<td>Colorful multi-panel file manager</td>
+<td><a href="https://github.com/yorukot/superfile" target="_blank" rel="noopener">yorukot/superfile</a></td>
+</tr>
+<tr>
+<td>lazygit / lazydocker</td>
+<td>Git and Docker dashboards (good for your Docker box)</td>
+<td><a href="https://github.com/jesseduffield/lazygit" target="_blank" rel="noopener">lazygit</a>, <a href="https://github.com/jesseduffield/lazydocker" target="_blank" rel="noopener">lazydocker</a></td>
+</tr>
+<tr>
+<td>Zellij / tmux</td>
+<td>Multiplexers; tmux + <a href="https://github.com/tmux-plugins/tpm" target="_blank" rel="noopener">tpm</a> + <a href="https://github.com/catppuccin/tmux" target="_blank" rel="noopener">catppuccin/tmux</a></td>
+<td><a href="https://github.com/zellij-org/zellij" target="_blank" rel="noopener">zellij</a></td>
+</tr>
+<tr>
+<td>Neovim distros</td>
+<td>Instant IDE-looking Neovim</td>
+<td><a href="https://github.com/LazyVim/LazyVim" target="_blank" rel="noopener">LazyVim</a>, <a href="https://github.com/NvChad/NvChad" target="_blank" rel="noopener">NvChad</a>, <a href="https://github.com/AstroNvim/AstroNvim" target="_blank" rel="noopener">AstroNvim</a></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="card"><h2 id="10-hacker-aesthetic-eye-candy">10 // Hacker-Aesthetic Eye Candy</h2>
+<p>Pure "movie hacker" fun, plus real security tools that happen to look incredible. Most are one <code>apt install</code> away.</p>
+<p><strong>Toys (zero purpose, maximum vibe)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Get it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cool-retro-term</td>
+<td>Glowing CRT monitor terminal (amber/green, scanlines, curvature)</td>
+<td><code>apt install cool-retro-term</code>, <a href="https://github.com/Swordfish90/cool-retro-term" target="_blank" rel="noopener">repo</a></td>
+</tr>
+<tr>
+<td>hollywood</td>
+<td>Splits the terminal into panes of fake technobabble</td>
+<td><code>apt install hollywood</code> (<a href="https://packages-pkgmirror-csail.debian.org/pt-br/trixie/s390x/games/hollywood" target="_blank" rel="noopener">Debian</a>), <a href="https://github.com/dustinkirkland/hollywood" target="_blank" rel="noopener">repo</a></td>
+</tr>
+<tr>
+<td>no-more-secrets (<code>nms</code>)</td>
+<td>The "Sneakers" movie decryption effect on any text: <code>ls -l \| nms</code></td>
+<td><a href="https://github.com/bartobri/no-more-secrets" target="_blank" rel="noopener">bartobri/no-more-secrets</a></td>
+</tr>
+<tr>
+<td>genact</td>
+<td>Fake activity: compiling, botnets, crypto mining</td>
+<td><a href="https://github.com/svenstaro/genact" target="_blank" rel="noopener">svenstaro/genact</a></td>
+</tr>
+<tr>
+<td>cmatrix / unimatrix / neo</td>
+<td>Matrix rain, 3 flavours</td>
+<td><code>apt install cmatrix</code>, <a href="https://github.com/will8211/unimatrix" target="_blank" rel="noopener">unimatrix</a>, <a href="https://github.com/st3w/neo" target="_blank" rel="noopener">neo</a></td>
+</tr>
+<tr>
+<td>cava</td>
+<td>Terminal audio visualizer</td>
+<td><code>apt install cava</code>, <a href="https://github.com/karlstav/cava" target="_blank" rel="noopener">repo</a></td>
+</tr>
+<tr>
+<td>pipes.sh, asciiquarium, tty-clock, sl</td>
+<td>Pipes screensaver, ASCII fish tank, big clock, steam train</td>
+<td><a href="https://github.com/pipeseroni/pipes.sh" target="_blank" rel="noopener">pipes.sh</a>, <a href="https://github.com/cmatsuoka/asciiquarium" target="_blank" rel="noopener">asciiquarium</a>, <a href="https://github.com/xorg62/tty-clock" target="_blank" rel="noopener">tty-clock</a>, <a href="https://github.com/mtoyoda/sl" target="_blank" rel="noopener">sl</a></td>
+</tr>
+<tr>
+<td>figlet / toilet / lolcat</td>
+<td>Big ASCII banners in rainbow</td>
+<td><code>apt install figlet toilet lolcat</code></td>
+</tr>
+<tr>
+<td>krabby</td>
+<td>Random creature sprite on terminal start</td>
+<td><a href="https://github.com/yannjor/krabby" target="_blank" rel="noopener">yannjor/krabby</a></td>
+</tr>
+<tr>
+<td>wttr.in</td>
+<td>Weather in the terminal: <code>curl wttr.in</code></td>
+<td><a href="https://github.com/chubin/wttr.in" target="_blank" rel="noopener">chubin/wttr.in</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Real security/network tools that look amazing (screenshot AND study material)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sniffnet</td>
+<td>Gorgeous GUI network traffic monitor</td>
+<td><a href="https://github.com/GyulyVGC/sniffnet" target="_blank" rel="noopener">GyulyVGC/sniffnet</a></td>
+</tr>
+<tr>
+<td>termshark</td>
+<td>Wireshark-style TUI on top of tshark</td>
+<td><a href="https://github.com/gcla/termshark" target="_blank" rel="noopener">gcla/termshark</a></td>
+</tr>
+<tr>
+<td>trippy</td>
+<td>Live traceroute + ping TUI with charts</td>
+<td><a href="https://github.com/fujiapple852/trippy" target="_blank" rel="noopener">fujiapple852/trippy</a></td>
+</tr>
+<tr>
+<td>gping</td>
+<td>Ping with a live graph</td>
+<td><a href="https://github.com/orf/gping" target="_blank" rel="noopener">orf/gping</a></td>
+</tr>
+<tr>
+<td>bandwhich</td>
+<td>Bandwidth per process / connection</td>
+<td><a href="https://github.com/imsnif/bandwhich" target="_blank" rel="noopener">imsnif/bandwhich</a></td>
+</tr>
+<tr>
+<td>wtf</td>
+<td>Terminal dashboard of anything</td>
+<td><a href="https://github.com/wtfutil/wtf" target="_blank" rel="noopener">wtfutil/wtf</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Skip:</strong> eDEX-UI, the famous sci-fi terminal, was archived in October 2021 (<a href="https://github.com/GitSquared/edex-ui" target="_blank" rel="noopener">repo</a>). An unmaintained Electron app is a real attack surface, so use cool-retro-term + btop + Sniffnet for the same look.</p>
+</section>
+<section class="card"><h2 id="11-app-theming-firefox-discord-spotify-vs-code-obsidian">11 // App Theming (Firefox, Discord, Spotify, VS Code, Obsidian)</h2>
+<p>A themed desktop with a stock white browser breaks the illusion. Match each app to your section 02 palette.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>App</th>
+<th>Mod / theme</th>
+<th>Vibe</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Firefox</td>
+<td>textfox</td>
+<td>Makes Firefox look like a TUI, huge on r/unixporn</td>
+<td><a href="https://github.com/adriankarlen/textfox" target="_blank" rel="noopener">adriankarlen/textfox</a></td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>Lepton (Firefox-UI-Fix)</td>
+<td>Cleaner, tighter Proton UI</td>
+<td><a href="https://github.com/black7375/Firefox-UI-Fix" target="_blank" rel="noopener">black7375/Firefox-UI-Fix</a></td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>ShyFox</td>
+<td>Auto-hiding sidebar + toolbar (README: currently unmaintained)</td>
+<td><a href="https://github.com/Naezr/ShyFox" target="_blank" rel="noopener">Naezr/ShyFox</a></td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>GNOME theme / Catppuccin</td>
+<td>Libadwaita look / palette colors</td>
+<td><a href="https://github.com/rafaelmardojai/firefox-gnome-theme" target="_blank" rel="noopener">firefox-gnome-theme</a>, <a href="https://github.com/catppuccin/firefox" target="_blank" rel="noopener">catppuccin/firefox</a></td>
+</tr>
+<tr>
+<td>Browser swap</td>
+<td>Zen Browser</td>
+<td>FOSS Firefox fork with vertical tabs and built-in theming</td>
+<td><a href="https://github.com/zen-browser/desktop" target="_blank" rel="noopener">zen-browser/desktop</a></td>
+</tr>
+<tr>
+<td>Discord</td>
+<td>Vesktop + Vencord</td>
+<td>Desktop client with plugins and CSS themes</td>
+<td><a href="https://github.com/Vencord/Vesktop" target="_blank" rel="noopener">Vencord/Vesktop</a></td>
+</tr>
+<tr>
+<td>Discord theme</td>
+<td>system24</td>
+<td>TUI-style Discord</td>
+<td><a href="https://github.com/refact0r/system24" target="_blank" rel="noopener">refact0r/system24</a></td>
+</tr>
+<tr>
+<td>Discord theme</td>
+<td>midnight / Catppuccin</td>
+<td>Dark glassy / palette</td>
+<td><a href="https://github.com/refact0r/midnight-discord" target="_blank" rel="noopener">midnight</a>, <a href="https://github.com/catppuccin/discord" target="_blank" rel="noopener">catppuccin/discord</a></td>
+</tr>
+<tr>
+<td>Spotify</td>
+<td>Spicetify</td>
+<td>Themes + extensions for the official client</td>
+<td><a href="https://github.com/spicetify/cli" target="_blank" rel="noopener">spicetify/cli</a></td>
+</tr>
+<tr>
+<td>VS Code</td>
+<td>VSCodium + Catppuccin</td>
+<td>FOSS build of VS Code, palette theme</td>
+<td><a href="https://github.com/VSCodium/vscodium" target="_blank" rel="noopener">VSCodium</a>, <a href="https://github.com/catppuccin/vscode" target="_blank" rel="noopener">catppuccin/vscode</a></td>
+</tr>
+<tr>
+<td>Obsidian</td>
+<td>Minimal / AnuPpuccin</td>
+<td>Two of the most-used community themes</td>
+<td><a href="https://github.com/kepano/obsidian-minimal" target="_blank" rel="noopener">kepano/obsidian-minimal</a>, <a href="https://github.com/AnubisNekhet/AnuPpuccin" target="_blank" rel="noopener">AnuPpuccin</a></td>
+</tr>
+<tr>
+<td>Flatpaks</td>
+<td>Flatseal</td>
+<td>Give Flatpak apps access to your GTK theme/fonts</td>
+<td><a href="https://github.com/tchx84/Flatseal" target="_blank" rel="noopener">tchx84/Flatseal</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Heads-up:</strong> Vencord's own README states client mods are against Discord's Terms of Service (no known bans, but it's your call). ncspot (terminal Spotify) needs Spotify Premium, so it's out; see section 15.</p>
+<p><strong>GTK apps on KDE:</strong> System Settings &gt; Colors &amp; Themes &gt; Application Style &gt; Configure GNOME/GTK Application Style. For more Firefox inspiration, browse r/FirefoxCSS.</p>
+</section>
+<section class="card"><h2 id="12-launchers-niche-cool-software">12 // Launchers &amp; Niche Cool Software</h2>
+<p>KRunner (<code>Alt+Space</code>) is already excellent; the tools below are for a launcher that looks as good as it works, plus a few delightful oddities.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+<th>Tier</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KRunner</td>
+<td>Built-in launcher, calculator, unit converter, shell commands</td>
+<td>Built-in</td>
+<td><code>Alt+Space</code></td>
+</tr>
+<tr>
+<td>Vicinae</td>
+<td>Raycast-style command palette: apps, clipboard history, snippets, emoji, window switcher</td>
+<td>Niche, rising</td>
+<td><a href="https://github.com/vicinaehq/vicinae" target="_blank" rel="noopener">vicinaehq/vicinae</a></td>
+</tr>
+<tr>
+<td>Kando</td>
+<td>Radial pie menu that pops at your cursor, fully themeable</td>
+<td>Niche, very cool</td>
+<td><a href="https://github.com/kando-menu/kando" target="_blank" rel="noopener">kando-menu/kando</a></td>
+</tr>
+<tr>
+<td>Albert / Ulauncher</td>
+<td>Classic keyboard launchers with themes</td>
+<td>Popular</td>
+<td><a href="https://github.com/albertlauncher/albert" target="_blank" rel="noopener">Albert</a>, <a href="https://github.com/Ulauncher/Ulauncher" target="_blank" rel="noopener">Ulauncher</a></td>
+</tr>
+<tr>
+<td>Rofi</td>
+<td>The r/unixporn launcher, but its Wayland support targets wlroots compositors</td>
+<td>Popular (other WMs)</td>
+<td><a href="https://github.com/davatorium/rofi" target="_blank" rel="noopener">davatorium/rofi</a></td>
+</tr>
+<tr>
+<td>Shijima-Qt</td>
+<td>Desktop mascots (Shimeji) that walk on your windows; supports Plasma 6 Wayland and X11</td>
+<td>Niche, adorable</td>
+<td><a href="https://github.com/pixelomer/Shijima-Qt" target="_blank" rel="noopener">pixelomer/Shijima-Qt</a></td>
+</tr>
+<tr>
+<td>KDE Connect</td>
+<td>Phone notifications, clipboard, media control from your Android</td>
+<td>Built-in</td>
+<td><code>apt install kdeconnect</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Dotfile managers (so your rice survives reinstalls)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Best for</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Konsave</td>
+<td>Whole-Plasma snapshots, export as <code>.knsv</code></td>
+<td><a href="https://github.com/Prayag2/konsave" target="_blank" rel="noopener">Prayag2/konsave</a></td>
+</tr>
+<tr>
+<td>GNU Stow</td>
+<td>Symlink normal config folders from a git repo</td>
+<td><code>apt install stow</code></td>
+</tr>
+<tr>
+<td>chezmoi</td>
+<td>Templated dotfiles across machines, with secrets support</td>
+<td><a href="https://github.com/twpayne/chezmoi" target="_blank" rel="noopener">twpayne/chezmoi</a></td>
+</tr>
+<tr>
+<td>plasma-manager</td>
+<td>Declarative KDE config (NixOS / home-manager only)</td>
+<td><a href="https://github.com/nix-community/plasma-manager" target="_blank" rel="noopener">nix-community/plasma-manager</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>A common pattern in the dotfiles repos below: Stow for terminal/shell configs, Konsave for Plasma state.</p>
+</section>
+<section class="card"><h2 id="13-dotfiles-repos-to-steal-from">13 // Dotfiles Repos to Steal From</h2>
+<p>Almost every repo below targets Arch (AUR package names). On Debian, read their component list and install each piece from the links in sections 02 to 07; their Konsave/Stow files still apply.</p>
+<p><strong>KDE Plasma 6 rices (with screenshots)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Look</th>
+<th>Key parts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/MrGilfy/umbra" target="_blank" rel="noopener">MrGilfy/umbra</a></td>
+<td>Monochrome: pure black, white outlines, floating dock</td>
+<td>Klassy, YAMIS icons, Ghostty, Konsave export</td>
+</tr>
+<tr>
+<td><a href="https://github.com/anas1412/dotfiles" target="_blank" rel="noopener">anas1412/dotfiles</a></td>
+<td>Tokyo Night on Wayland</td>
+<td>Kvantum, kwin-effects-glass, Kitty, fish, Stow</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Blacksuan19/Dotfiles" target="_blank" rel="noopener">Blacksuan19/Dotfiles</a></td>
+<td>Tiling-first "Plasma for twm users"</td>
+<td>Krohnkite, Darkly, Rounded Corners, Colloid, Konsave + Stow</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Jarex985/kde-dotfiles" target="_blank" rel="noopener">Jarex985/kde-dotfiles</a></td>
+<td>Modern Plasma 6.6 islands</td>
+<td>Klassy, Panel Colorizer presets, Material You, Better Blur DX, Kurve</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Nadir-Alishly/kde-plasma-rice" target="_blank" rel="noopener">Nadir-Alishly/kde-plasma-rice</a></td>
+<td>Step-by-step written guide</td>
+<td>Floating dock, wallpaper-driven colors</td>
+</tr>
+<tr>
+<td><a href="https://github.com/milomillow/kde-rice-dots" target="_blank" rel="noopener">milomillow/kde-rice-dots</a></td>
+<td>Two rices, fetch-art focused</td>
+<td>Fastfetch config</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Prayag2/kde_onedark" target="_blank" rel="noopener">Prayag2/kde_onedark</a></td>
+<td>One Dark global theme by the Konsave author</td>
+<td>Theme + 4 wallpapers</td>
+</tr>
+<tr>
+<td><a href="https://github.com/AlexNabokikh/nix-config" target="_blank" rel="noopener">AlexNabokikh/nix-config</a></td>
+<td>Fully declarative KDE via plasma-manager</td>
+<td>NixOS only, great to read</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Older KDE rices (Plasma 5 era: inspiration, not copy-paste)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ComplexPlatform/KDE-dotfiles" target="_blank" rel="noopener">ComplexPlatform/KDE-dotfiles</a></td>
+<td>6 themed looks (Cherry Blossom, Urban, Coffee, Foggy Mountain...), uses Latte/Polybar</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ketgg/k-dots" target="_blank" rel="noopener">ketgg/k-dots</a></td>
+<td>Aesthetic KDE, README warns Plasma 6 unsupported</td>
+</tr>
+<tr>
+<td><a href="https://github.com/WillPower3309/dotfiles" target="_blank" rel="noopener">WillPower3309/dotfiles</a></td>
+<td>KDE + i3 hybrid, Spicetify, Unimatrix</td>
+</tr>
+<tr>
+<td><a href="https://github.com/yayuuu/my-configs" target="_blank" rel="noopener">yayuuu/my-configs</a></td>
+<td>"My Plasma thinks it's GNOME" (repo has since moved to niri)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Curated lists (hundreds more, with images)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>List</th>
+<th>What's inside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/shvedes/awesome-kde" target="_blank" rel="noopener">shvedes/awesome-kde</a></td>
+<td>KDE apps, plugins and resources for Plasma 6</td>
+</tr>
+<tr>
+<td><a href="https://github.com/0PandaDEV/awesome-unixporn" target="_blank" rel="noopener">0PandaDEV/awesome-unixporn</a></td>
+<td>Best r/unixporn posts with dotfiles, grouped by DE/WM</td>
+</tr>
+<tr>
+<td><a href="https://github.com/zemmsoares/awesome-rices" target="_blank" rel="noopener">zemmsoares/awesome-rices</a></td>
+<td>Big screenshot gallery of rices + dotfiles</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fosslife/awesome-ricing" target="_blank" rel="noopener">fosslife/awesome-ricing</a></td>
+<td>Every ricing tool, categorized</td>
+</tr>
+<tr>
+<td><a href="https://github.com/webpro/awesome-dotfiles" target="_blank" rel="noopener">webpro/awesome-dotfiles</a></td>
+<td>How to manage dotfiles well</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Not KDE, but steal the colors and ideas:</strong> <a href="https://github.com/end-4/dots-hyprland" target="_blank" rel="noopener">end-4/dots-hyprland</a>, <a href="https://github.com/HyDE-Project/HyDE" target="_blank" rel="noopener">HyDE</a>, <a href="https://github.com/JaKooLit/Hyprland-Dots" target="_blank" rel="noopener">JaKooLit/Hyprland-Dots</a>, <a href="https://github.com/mylinuxforwork/dotfiles" target="_blank" rel="noopener">mylinuxforwork/dotfiles</a>, <a href="https://github.com/gh0stzk/dotfiles" target="_blank" rel="noopener">gh0stzk/dotfiles</a> (18 bspwm themes), <a href="https://github.com/rxyhn/yoru" target="_blank" rel="noopener">rxyhn/yoru</a>, <a href="https://github.com/elenapan/dotfiles" target="_blank" rel="noopener">elenapan/dotfiles</a>, <a href="https://github.com/adi1090x/polybar-themes" target="_blank" rel="noopener">adi1090x/polybar-themes</a>.</p>
+</section>
+<section class="card"><h2 id="14-reddit-inspiration-gallery">14 // Reddit Inspiration Gallery</h2>
+<p>Best workflow: open a post, read OP's "details" comment (they list theme, icons, widgets), then find each piece in this doc. Posts tagged <code>[KDE]</code> or <code>[Plasma]</code> on r/unixporn are the ones you can actually reproduce.</p>
+<p><strong>r/unixporn KDE posts</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Post</th>
+<th>What to steal</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"[KDE] My first rice" (1.7k upvotes)</td>
+<td>Layan Kvantum + Arc Plasma style, centered dock</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/1fvwbue/kde_my_first_rice/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>"[KDE] I love it"</td>
+<td>Apple Sequoia global theme, Lightly transparency, BeautyDream icons, Fastfetch</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/1fyyywo/kde_i_love_it/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>"[KDE] I just learned how to customize kde"</td>
+<td>Edna global theme, SF fonts, Kitty + Starship</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/1k1x2bq/kde_i_just_learned_how_to_customize_kde/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>"[KDE] My Plasma thinks it's Gnome"</td>
+<td>GNOME-style top bar on Plasma</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/1l96act/kde_my_plasma_thinks_its_gnome/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>"[KDE] Arch Linux" (Gruvbox)</td>
+<td>Gruvbox Plasma theme in action</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/tfh7l5/kde_arch_linux/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>"[KDE] First rice, how well did I do?"</td>
+<td>Classic Plasma 5 Latte layout (ideas only)</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/r2aqyd/kde_first_rice_how_well_did_i_do/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>"[wmderland] chill"</td>
+<td>KDE + custom WM hybrid with dotfiles</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/b7pbs8/wmderland_chill/" target="_blank" rel="noopener">post</a></td>
+</tr>
+<tr>
+<td>Hyprland rice you can clone on KDE</td>
+<td>EndeavourOS users say Panel Colorizer + Krohnkite gets you this look</td>
+<td><a href="https://www.reddit.com/r/unixporn/comments/1fknhp2/hyprland_first_time_using_actual_arch_instead_of/" target="_blank" rel="noopener">post</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>r/kde threads worth bookmarking</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Thread</th>
+<th>Why</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Panel Colorizer v1.0.0 released (448 upvotes)</td>
+<td>Dev's own showcase + preset tips</td>
+<td><a href="https://www.reddit.com/r/kde/comments/1g5r6rs/panel_colorizer_v100_released/" target="_blank" rel="noopener">thread</a></td>
+</tr>
+<tr>
+<td>"Default panel look"</td>
+<td>How to build the popular segmented panel</td>
+<td><a href="https://www.reddit.com/r/kde/comments/1gcin8t/default_panel_look/" target="_blank" rel="noopener">thread</a></td>
+</tr>
+<tr>
+<td>Monthly Screenshot Thread</td>
+<td>Fresh Plasma desktops every month</td>
+<td><a href="https://www.reddit.com/r/kde/comments/1hju54e/monthly_screenshot_thread/" target="_blank" rel="noopener">thread</a></td>
+</tr>
+<tr>
+<td>"Do not install global themes"</td>
+<td>The <code>rm -rf</code> incident, straight from the victim</td>
+<td><a href="https://www.reddit.com/r/kde/comments/1bixmbx/do_not_install_global_themes_some_wipe_out_all/" target="_blank" rel="noopener">thread</a></td>
+</tr>
+<tr>
+<td>plasma-manager on NixOS</td>
+<td>Declarative KDE config deep-dive</td>
+<td><a href="https://www.reddit.com/r/NixOS/comments/1lbv8hn/ive_avoided_kde_for_years_because_of_dotfile/" target="_blank" rel="noopener">thread</a></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bottomless galleries</strong></p>
+<ul>
+<li><a href="https://www.reddit.com/r/unixporn/search/?q=KDE&amp;sort=top&amp;t=year" target="_blank" rel="noopener">r/unixporn top KDE posts this year</a> · <a href="https://www.reddit.com/r/unixporn/wiki/index" target="_blank" rel="noopener">r/unixporn wiki</a> · r/UsabilityPorn · r/FirefoxCSS</li>
+<li><a href="https://discuss.kde.org/t/share-your-desktop/490" target="_blank" rel="noopener">KDE Discuss: "Share your desktop!"</a> (years of Plasma screenshots)</li>
+<li><a href="https://forum.endeavouros.com/t/share-your-desktop-2026/77330" target="_blank" rel="noopener">EndeavourOS: Share Your Desktop 2026</a> (lots of Klassy + Panel Colorizer setups)</li>
+<li><a href="https://aolabs.dev/projects/kde-plasma-6-dotfiles/" target="_blank" rel="noopener">Plasma 6 dotfiles write-up ("Plasma-Round")</a> (Stow + Konsave walkthrough)</li>
+</ul>
+</section>
+<section class="card"><h2 id="15-paid-foss-swaps">15 // Paid → FOSS Swaps</h2>
+<p>Everything in this doc is free. These are the paid tools people often see in rice screenshots, and what to use instead.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Paid thing</th>
+<th>Why people want it</th>
+<th>Free/FOSS swap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wallpaper Engine (Steam)</td>
+<td>Animated / interactive wallpapers</td>
+<td><a href="https://github.com/luisbocanegra/plasma-smart-video-wallpaper-reborn" target="_blank" rel="noopener">Smart Video Wallpaper Reborn</a>, <a href="https://github.com/y4my4my4m/kde-shader-wallpaper" target="_blank" rel="noopener">Shader Wallpaper</a>, <a href="https://github.com/waywallen/waywallen" target="_blank" rel="noopener">Waywallen</a>. Note: <a href="https://github.com/Almamu/linux-wallpaperengine" target="_blank" rel="noopener">linux-wallpaperengine</a> is FOSS but says you must own Wallpaper Engine for its assets</td>
+</tr>
+<tr>
+<td>Spotify Premium (needed by ncspot)</td>
+<td>Terminal Spotify client</td>
+<td><a href="https://github.com/spicetify/cli" target="_blank" rel="noopener">Spicetify</a> on the regular client, or your own music in <a href="https://github.com/KDE/elisa" target="_blank" rel="noopener">Elisa</a> / <a href="https://github.com/strawberrymusicplayer/strawberry" target="_blank" rel="noopener">Strawberry</a></td>
+</tr>
+<tr>
+<td>Raycast Pro / Alfred Powerpack (macOS)</td>
+<td>Fancy command palette</td>
+<td><a href="https://github.com/vicinaehq/vicinae" target="_blank" rel="noopener">Vicinae</a>, KRunner, <a href="https://github.com/albertlauncher/albert" target="_blank" rel="noopener">Albert</a></td>
+</tr>
+<tr>
+<td>Magnet / window snapping apps</td>
+<td>Snap zones</td>
+<td><a href="https://github.com/gerritdevriese/kzones" target="_blank" rel="noopener">KZones</a>, built-in <code>Meta+T</code> tiling</td>
+</tr>
+<tr>
+<td>Stardock WindowBlinds / DeskScapes</td>
+<td>Custom window skins, animated desktop</td>
+<td><a href="https://github.com/tsujan/Kvantum" target="_blank" rel="noopener">Kvantum</a> + Klassy, <a href="https://github.com/Schneegans/Burn-My-Windows" target="_blank" rel="noopener">Burn My Windows</a>, live wallpapers above</td>
+</tr>
+<tr>
+<td>iStat Menus</td>
+<td>Pretty system stats</td>
+<td><a href="https://github.com/orblazer/plasma-applet-resources-monitor" target="_blank" rel="noopener">Resources Monitor</a> widget, <a href="https://github.com/aristocratos/btop" target="_blank" rel="noopener">btop</a>, Conky</td>
+</tr>
+<tr>
+<td>Operator Mono / MonoLisa / Berkeley Mono</td>
+<td>Cursive-italic coding fonts</td>
+<td><a href="https://github.com/subframe7536/maple-font" target="_blank" rel="noopener">Maple Mono</a>, <a href="https://github.com/rubjo/victor-mono" target="_blank" rel="noopener">Victor Mono</a>, <a href="https://github.com/githubnext/monaspace" target="_blank" rel="noopener">Monaspace</a></td>
+</tr>
+<tr>
+<td>Apple SF Pro (license-restricted)</td>
+<td>Clean macOS UI font</td>
+<td><a href="https://github.com/rsms/inter" target="_blank" rel="noopener">Inter</a>, <a href="https://github.com/vercel/geist-font" target="_blank" rel="noopener">Geist</a></td>
+</tr>
+<tr>
+<td>Obsidian Sync</td>
+<td>Sync your vault</td>
+<td>Syncthing (you already use it)</td>
+</tr>
+<tr>
+<td>Typora</td>
+<td>Pretty Markdown editor</td>
+<td><a href="https://github.com/KDE/ghostwriter" target="_blank" rel="noopener">Ghostwriter</a> (KDE app)</td>
+</tr>
+<tr>
+<td>Discord Nitro cosmetics</td>
+<td>Custom look</td>
+<td>Vesktop themes (ToS caveat in section 11)</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="card"><h2 id="16-starter-rice-recipes-pick-a-column-follow-it-down">16 // Starter Rice Recipes (pick a column, follow it down)</h2>
+<p>Four complete looks built only from parts that work on Debian 13 / Plasma 6.3. Do one column top to bottom, <code>konsave -s &lt;name&gt;</code> it, then try another.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>NETRUNNER (cyberpunk)</th>
+<th>MOCHA (Catppuccin)</th>
+<th>CUPERTINO (macOS)</th>
+<th>FJORD (Nord tiling)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Colors</td>
+<td>Cyberpunk Neon</td>
+<td>catppuccin/kde Mocha</td>
+<td>WhiteSur dark</td>
+<td>Nordic or Utterly Nord</td>
+</tr>
+<tr>
+<td>App style</td>
+<td>Kvantum: CyberHack or Daemon-2.0</td>
+<td>Kvantum Catppuccin</td>
+<td>Kvantum WhiteSur</td>
+<td>Kvantum + Darkly v0.5.25</td>
+</tr>
+<tr>
+<td>Window deco</td>
+<td>Klassy (plasma6.3 branch), neon outline</td>
+<td>Breeze, no borders</td>
+<td>Sierra Breeze Enhanced</td>
+<td>Klassy, thin outline</td>
+</tr>
+<tr>
+<td>Icons</td>
+<td>Candy</td>
+<td>Papirus + catppuccin folders</td>
+<td>WhiteSur icons</td>
+<td>Tela-circle (nord)</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td>Breeze Hacked (custom neon)</td>
+<td>Catppuccin cursors</td>
+<td>Apple cursor</td>
+<td>Nordzy</td>
+</tr>
+<tr>
+<td>Fonts</td>
+<td>JetBrains Mono NF</td>
+<td>Maple Mono NF + Inter</td>
+<td>Inter / Geist</td>
+<td>Iosevka NF</td>
+</tr>
+<tr>
+<td>Panel</td>
+<td>Panel Colorizer islands + Command Output (IP/VPN)</td>
+<td>Panel Colorizer preset, floating</td>
+<td>Top bar + Application Title Bar, floating "fit content" dock</td>
+<td>Thin top bar + Kara pager</td>
+</tr>
+<tr>
+<td>Effects</td>
+<td>Better Blur v1.3.6, Burn My Windows "Glitch"</td>
+<td>Rounded Corners, Magic Lamp</td>
+<td>Rounded Corners, Magic Lamp, Glide</td>
+<td>Krohnkite + Geometry Change</td>
+</tr>
+<tr>
+<td>Wallpaper</td>
+<td>Shader Wallpaper (matrix/neon shaders)</td>
+<td>catppuccin-wallpapers</td>
+<td>Dynamic Wallpaper (day/night)</td>
+<td>nordic-wallpapers</td>
+</tr>
+<tr>
+<td>Terminal</td>
+<td>cool-retro-term for show, Kitty for work; btop, nms, hollywood</td>
+<td>Konsole Catppuccin + Starship Catppuccin + tmux Catppuccin</td>
+<td>Kitty + Starship, fastfetch</td>
+<td>Kitty + Starship Nord-ish preset, Yazi</td>
+</tr>
+<tr>
+<td>Apps</td>
+<td>textfox, system24 Discord</td>
+<td>catppuccin Firefox/Discord/VSCodium</td>
+<td>Zen Browser, Vicinae</td>
+<td>Lepton Firefox, lazygit</td>
+</tr>
+<tr>
+<td>Boot/login</td>
+<td>Fallout GRUB, adi1090x Plymouth, SilentSDDM</td>
+<td>catppuccin grub + sddm + plymouth</td>
+<td>WhiteSur GRUB (grub2-themes), astronaut SDDM</td>
+<td>Elegant GRUB, Where-Is-My-SDDM</td>
+</tr>
+</tbody>
+</table></div>
+<p>Build order that minimizes breakage: colors &gt; icons/cursor/fonts &gt; Kvantum &gt; window decoration &gt; panels &gt; effects &gt; terminal &gt; apps &gt; boot/login last.</p>
+</section>
+<section class="card"><h2 id="sources">Sources</h2>
+<p>Every GitHub link in this doc was checked to exist, and version notes come from each project's README, on 2026-10-30.</p>
+<ul>
+<li><a href="https://wiki.debian.org/PkgQtKde/TrixieReleasePlans" target="_blank" rel="noopener">Debian Qt/KDE team: Trixie release plan</a> and <a href="https://linuxiac.com/?p=179486" target="_blank" rel="noopener">linuxiac: Debian 13 ships Plasma 6.3.6</a></li>
+<li><a href="https://wiki.debian.org/Plasma%206" target="_blank" rel="noopener">Debian Wiki: Plasma 6</a></li>
+<li><a href="https://www.bleepingcomputer.com/news/linux/kde-advises-extreme-caution-after-theme-wipes-linux-users-files/" target="_blank" rel="noopener">BleepingComputer: KDE theme wipes user's files</a></li>
+<li><a href="https://packages.debian.org/src:kvantum" target="_blank" rel="noopener">Debian package: kvantum</a>, <a href="https://packages-pkgmirror-csail.debian.org/pt-br/trixie/s390x/games/hollywood" target="_blank" rel="noopener">Debian package: hollywood</a></li>
+<li><a href="https://en.wikipedia.org/wiki/KDE_Plasma_6" target="_blank" rel="noopener">Wikipedia: KDE Plasma 6 release history</a></li>
+<li>READMEs for version limits: <a href="https://github.com/paulmcauley/klassy" target="_blank" rel="noopener">Klassy</a>, <a href="https://github.com/Bali10050/Darkly" target="_blank" rel="noopener">Darkly</a>, <a href="https://github.com/taj-ny/kwin-effects-forceblur" target="_blank" rel="noopener">Better Blur</a>, <a href="https://github.com/xarblu/kwin-effects-better-blur-dx" target="_blank" rel="noopener">Better Blur DX</a>, <a href="https://github.com/4v3ngR/kwin-effects-glass" target="_blank" rel="noopener">Glass</a>, <a href="https://github.com/zeroxoneafour/polonium" target="_blank" rel="noopener">Polonium</a>, <a href="https://github.com/aeroshell-desktop/aerothemeplasma" target="_blank" rel="noopener">AeroThemePlasma</a>, <a href="https://github.com/fastfetch-cli/fastfetch" target="_blank" rel="noopener">fastfetch</a>, <a href="https://github.com/starship/starship" target="_blank" rel="noopener">Starship</a>, <a href="https://github.com/Vendicated/Vencord" target="_blank" rel="noopener">Vencord</a>, <a href="https://github.com/hrkfdn/ncspot" target="_blank" rel="noopener">ncspot</a>, <a href="https://github.com/GitSquared/edex-ui" target="_blank" rel="noopener">eDEX-UI</a></li>
+<li><a href="https://store.kde.org" target="_blank" rel="noopener">KDE Store</a> and <a href="https://forum.endeavouros.com/t/what-is-ricing/75569?page=2" target="_blank" rel="noopener">EndeavourOS "What is Ricing?" thread</a></li>
+<li>Reddit posts: linked in section 14</li>
+</ul>
+<hr />
+<h3 id="about-this-repo">About this repo</h3>
+<p>Live site: deployed on Vercel from <code>index.html</code>. To rebuild the site after editing this README:</p>
+<pre><code class="language-bash">pip install markdown
+python3 build/build.py README.md build/template.html index.html
+</code></pre></section>
+<footer>made for ricing, not for crying · back up before you theme · <a href="#top" onclick="scrollTo(0,0);return false">back to top ↑</a></footer>
+</main>
+</div>
+<button class="top" onclick="scrollTo({top:0})" aria-label="Back to top">↑ top</button>
+<script>
+(function(){
+var links=[].slice.call(document.querySelectorAll('nav .links a'));
+var cards=[].slice.call(document.querySelectorAll('.card'));
+try{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.querySelector('h2').id;links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+id)})}})},{rootMargin:'-20% 0px -70% 0px'});cards.forEach(function(c){io.observe(c)})}catch(e){}
+var q=document.getElementById('q');
+q.addEventListener('input',function(){var v=q.value.trim().toLowerCase();cards.forEach(function(c,i){var hit=!v||c.textContent.toLowerCase().indexOf(v)>-1;c.classList.toggle('hide',!hit);var h=c.querySelector('h2');var a=links.filter(function(l){return l.getAttribute('href')==='#'+h.id})[0];if(a)a.style.opacity=hit?1:.3})});
+})();
+</script>
+</body>
+</html>
