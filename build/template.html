@@ -15,7 +15,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;background:rep
 a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed rgba(34,228,255,.35)}a:hover{color:#fff;border-bottom-color:var(--pink);text-shadow:0 0 8px rgba(34,228,255,.6)}
 .wrap{display:grid;grid-template-columns:270px minmax(0,1fr);gap:28px;max-width:1440px;margin:0 auto;padding:24px}
 nav{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;background:rgba(13,16,24,.85);border:1px solid var(--line);border-radius:14px;padding:14px;backdrop-filter:blur(10px)}
-nav .brand{font:700 13px/1.3 var(--mono);color:var(--lime);letter-spacing:.06em;margin:2px 4px 12px}
+nav .brand{display:block;font:700 13px/1.3 var(--mono);color:var(--lime);letter-spacing:.06em;margin:2px 4px 12px;padding:0;border:0;background:none}nav .brand:hover{color:#fff;background:none;text-shadow:0 0 10px rgba(157,255,92,.7)}
 nav .brand span{color:var(--dim)}
 nav a{display:flex;gap:10px;align-items:baseline;padding:6px 8px;border:0;border-radius:8px;color:var(--text);font-size:13.5px}
 nav a .n{font:600 11px var(--mono);color:var(--pink);min-width:20px}
@@ -61,7 +61,7 @@ mark{background:rgba(255,43,214,.35);color:#fff;border-radius:3px}
 <body>
 <div class="wrap">
 <nav aria-label="Sections">
-<div class="brand">~/rice-bible <span>$</span></div>
+<a class="brand" href="/" aria-label="The Debian KDE Rice Bible, back to top">~/rice-bible <span>$</span></a>
 <input id="q" type="search" placeholder="filter: kvantum, grub, blur..." aria-label="Filter sections">
 <div class="links">%%TOC%%</div>
 </nav>
